@@ -1,24 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Button, Tooltip } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Tooltip title="search">
+        <Button type="primary" shape="circle" icon={<SearchOutlined />} />
+      </Tooltip>
+      <Button type="primary" shape="circle">
+        A
+      </Button>
+      <Button type="primary" icon={<SearchOutlined />}>
+        Search
+      </Button>
+      <Tooltip title="search">
+        <Button shape="circle" icon={<SearchOutlined />} />
+      </Tooltip>
+      <Button icon={<SearchOutlined />}>Search</Button>
+      <br />
+      <Tooltip title="search">
+        <Button shape="circle" icon={<SearchOutlined />} />
+      </Tooltip>
+      <Button icon={<SearchOutlined />}>Search</Button>
+      <Tooltip title="search">
+        <Button type="dashed" shape="circle" icon={<SearchOutlined />} />
+      </Tooltip>
+      <Button type="dashed" icon={<SearchOutlined />}>
+        Search
+      </Button>
     </div>
   );
 }
