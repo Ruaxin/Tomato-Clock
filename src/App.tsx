@@ -1,37 +1,20 @@
-import React from 'react';
-import './App.css';
-import { Button, Tooltip } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import * as React from 'react';
+import {BrowserRouter as Router,Route} from 'react-router-dom';
+import SignUp from './components/SignUp/SignUP'
+import Index from './components/Index/Index'
+import Login from './components/Login/Login'
 
-function App() {
-  return (
-    <div className="App">
-      <Tooltip title="search">
-        <Button type="primary" shape="circle" icon={<SearchOutlined />} />
-      </Tooltip>
-      <Button type="primary" shape="circle">
-        A
-      </Button>
-      <Button type="primary" icon={<SearchOutlined />}>
-        Search
-      </Button>
-      <Tooltip title="search">
-        <Button shape="circle" icon={<SearchOutlined />} />
-      </Tooltip>
-      <Button icon={<SearchOutlined />}>Search</Button>
-      <br />
-      <Tooltip title="search">
-        <Button shape="circle" icon={<SearchOutlined />} />
-      </Tooltip>
-      <Button icon={<SearchOutlined />}>Search</Button>
-      <Tooltip title="search">
-        <Button type="dashed" shape="circle" icon={<SearchOutlined />} />
-      </Tooltip>
-      <Button type="dashed" icon={<SearchOutlined />}>
-        Search
-      </Button>
-    </div>
-  );
+
+
+class App extends React.Component{
+  render(){
+    return(
+      <Router>
+        <Route exact={true} path="/" component={Index}/>
+        <Route path="/login" component={Login}/>
+        <Route path="/signUp" component={SignUp}/>
+      </Router>
+    )
+  }
 }
-
-export default App;
+export default App
