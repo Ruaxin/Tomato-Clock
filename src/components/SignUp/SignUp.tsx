@@ -2,8 +2,8 @@ import * as React from 'react';
 import {Input, Button} from 'antd';
 import {UserOutlined} from '@ant-design/icons';
 import axios from '../../config/axios';
-import {Link} from 'react-router-dom'
-import './SignUp.scss'
+import {Link} from 'react-router-dom';
+import './SignUp.scss';
 
 interface ISignUpState {
   account: string,
@@ -38,7 +38,7 @@ class SignUp extends React.Component<any, ISignUpState> {
       await axios.post('sign_up/user', {
         account, password, password_confirmation: passwordConformation
       });
-      console.log('成功');
+      this.props.history.push('/');
     } catch (e) {
       throw new Error(e);
     }
@@ -59,7 +59,7 @@ class SignUp extends React.Component<any, ISignUpState> {
         <Input.Password placeholder="请确认密码"
                         value={passwordConformation}
                         onChange={this.onChangePasswordConformation}/>
-        <Button type="primary" onClick={this.submit} className="loginButton">注册</Button>
+        <Button type="primary" onClick={this.submit} className="signUpButton">注册</Button>
         <p>如果你已有账号，请<Link to="/login">登录</Link></p>
       </div>
     );

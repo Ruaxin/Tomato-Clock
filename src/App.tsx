@@ -5,8 +5,6 @@ import Index from './components/Index/Index';
 import Login from './components/Login/Login';
 import './App.css';
 
-
-
 class App extends React.Component {
   render() {
     return (

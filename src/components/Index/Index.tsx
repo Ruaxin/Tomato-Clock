@@ -7,7 +7,10 @@ interface IRouter {
 }
 
 class Index extends React.Component<IRouter> {
-  constructor(props: any) {super(props);}
+  constructor(props: any)
+  {
+    super(props);
+  }
 
   login = () => {
     this.props.history.push('/login');
