@@ -1,7 +1,6 @@
 import axios from 'axios';
-//import {createBrowserHistory} from 'history';
+import history from './history';
 
-//const history = createBrowserHistory();
 const appID = 'PxrfUhDx1B86NxdiLYKL1LUw';
 const appSecret = 'RQ5DYVyc2TAwrMvV6eMmd4Ui';
 
@@ -32,7 +31,7 @@ instance.interceptors.response.use((response) => {
 }, (error) => {
   if (error.response.status === 401) {
     console.log('重定向');
-    window.location.href = '/login';
+    history.push('/login')
   }
   return Promise.reject(error);
 });
