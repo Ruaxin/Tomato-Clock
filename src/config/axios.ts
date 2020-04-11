@@ -1,5 +1,7 @@
 import axios from 'axios';
+//import {createBrowserHistory} from 'history';
 
+//const history = createBrowserHistory();
 const appID = 'PxrfUhDx1B86NxdiLYKL1LUw';
 const appSecret = 'RQ5DYVyc2TAwrMvV6eMmd4Ui';
 
@@ -11,23 +13,27 @@ const instance = axios.create({
   }
 });
 
-instance.interceptors.request.use(function (config) {
+instance.interceptors.request.use((config) => {
   const xToken = localStorage.getItem('x-token');
   if (xToken) {
     config.headers['Authorization'] = `Bearer ${xToken}`;
   }
   return config;
-}, function (error) {
+}, (error) => {
   console.error(error);
   return Promise.reject(error);
 });
 
-instance.interceptors.response.use(function (response) {
+instance.interceptors.response.use((response) => {
   if (response.headers['x-token']) {
     localStorage.setItem('x-token', response.headers['x-token']);
   }
   return response;
-}, function (error) {
+}, (error) => {
+  if (error.response.status === 401) {
+    console.log('重定向');
+    window.location.href = '/login';
+  }
   return Promise.reject(error);
 });
 
