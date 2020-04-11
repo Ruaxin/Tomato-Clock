@@ -43,15 +43,12 @@ class SignUp extends React.Component<any, ISignUpState> {
       throw new Error(e);
     }
   };
-  linkTo =()=>{
-    this.props.history.push('login')
-  }
 
   public render() {
     const {account, password, passwordConformation} = this.state;
     return (
       <div className="SignUp" id="SignUp">
-        <h1>番茄闹钟账号登入</h1>
+        <h1>番茄闹钟账号注册</h1>
         <Input placeholder="请输入用户名"
                prefix={<UserOutlined/>}
                value={account}
