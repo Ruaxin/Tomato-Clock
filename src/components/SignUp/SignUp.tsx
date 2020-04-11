@@ -1,8 +1,9 @@
 import * as React from 'react';
-import '../../App.css';
 import {Input, Button} from 'antd';
 import {UserOutlined} from '@ant-design/icons';
 import axios from '../../config/axios';
+import {Link} from 'react-router-dom'
+import './SignUp.scss'
 
 interface ISignUpState {
   account: string,
@@ -42,11 +43,15 @@ class SignUp extends React.Component<any, ISignUpState> {
       throw new Error(e);
     }
   };
+  linkTo =()=>{
+    this.props.history.push('login')
+  }
 
   public render() {
     const {account, password, passwordConformation} = this.state;
     return (
-      <div className="SignUp">
+      <div className="SignUp" id="SignUp">
+        <h1>番茄闹钟账号登入</h1>
         <Input placeholder="请输入用户名"
                prefix={<UserOutlined/>}
                value={account}
@@ -57,7 +62,8 @@ class SignUp extends React.Component<any, ISignUpState> {
         <Input.Password placeholder="请确认密码"
                         value={passwordConformation}
                         onChange={this.onChangePasswordConformation}/>
-        <Button type="primary" onClick={this.submit}>注册</Button>
+        <Button type="primary" onClick={this.submit} className="loginButton">注册</Button>
+        <p>如果你已有账号，请<Link to="/login">登录</Link></p>
       </div>
     );
   }
