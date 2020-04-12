@@ -4,6 +4,7 @@ import {DownOutlined, UserOutlined, LogoutOutlined} from '@ant-design/icons';
 import './Index.scss';
 import axios from '../../config/axios';
 import history from '../../config/history';
+import Todos from '../Todos/Todos';
 
 interface IRouter {
   history: any
@@ -58,6 +59,9 @@ class Index extends React.Component<IRouter, IIndexState> {
             <span>{this.state.user && this.state.user.account}<DownOutlined style={{marginLeft:8}}/></span>
           </Dropdown>
         </header>
+        <main>
+          <Todos/>
+        </main>
       </div>
     );
   }
