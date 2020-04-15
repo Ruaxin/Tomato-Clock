@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {Input} from 'antd';
 import {EnterOutlined} from '@ant-design/icons';
-import axios from '../../config/axios';
 
 interface ITodoInputState {
   description: string
@@ -22,12 +21,12 @@ class TodoInput extends React.Component<ITodoInputProps, ITodoInputState> {
   onKeyUp = (e: any) => {
     if (e.keyCode === 13 && this.state.description !== '') {
       this.addTodo();
-      this.setState({description: ''});
     }
   };
 
   addTodo = () => {
     this.props.addTodo({description: this.state.description});
+    this.setState({description: ''});
   };
 
   public render() {
