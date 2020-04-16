@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Checkbox} from 'antd';
 import {EnterOutlined, DeleteOutlined} from '@ant-design/icons';
+import './TodoItem.scss';
 
 interface ITodoItemProps {
   id: number;
@@ -42,14 +43,20 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
                onChange={e => this.setState({editText: e.target.value})}
                onKeyUp={this.onKeyUp}/>
         <div className="iconWrapper">
-          <EnterOutlined/>
-          <DeleteOutlined onClick={() => this.update({deleted: true})}/>
+          <EnterOutlined className="icon"/>
+          <DeleteOutlined className="icon" onClick={() => this.update({deleted: true})}/>
         </div>
       </div>
     );
-    const Text = <span onDoubleClick={this.toEditing}>{this.props.description}</span>;
+    const Text = <span className="text" onDoubleClick={this.toEditing}>{this.props.description}</span>;
+    let classNames = require('classnames');
+    const todoItemClass = classNames({
+      TodoItem: true,
+      editing: this.props.editing,
+      completed: this.props.completed
+    });
     return (
-      <div className="TodoItem" id="TodoItem">
+      <div className={todoItemClass} id="TodoItem">
         <Checkbox checked={this.props.completed}
                   onChange={e => this.update({completed: e.target.checked})}
         />
