@@ -6,6 +6,7 @@ export const addTodo = (payload: any) => {
     payload
   };
 };
+
 export const initTodos = (payload: any[]) => {
   return {
     type: INIT_TODOS,
@@ -19,6 +20,7 @@ export const updateTodo = (payload: any) => {
     payload
   };
 };
+
 export const editTodo = (payload: number) => {
   return {
     type: EDIT_TODO,

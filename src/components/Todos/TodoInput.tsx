@@ -7,11 +7,11 @@ import axios from '../../config/axios';
 
 
 interface ITodoInputState {
-  description: string
+  description: string;
 }
 
 interface ITodoInputProps {
-  addTodo: (payload: any) => any
+  addTodo: (payload: any) => any;
 }
 
 class TodoInput extends React.Component<ITodoInputProps, ITodoInputState> {
@@ -20,6 +20,7 @@ class TodoInput extends React.Component<ITodoInputProps, ITodoInputState> {
     this.state = {
       description: ''
     };
+    console.log(this.props);
   }
 
   onKeyUp = (e: any) => {
@@ -40,11 +41,12 @@ class TodoInput extends React.Component<ITodoInputProps, ITodoInputState> {
 
   public render() {
     const {description} = this.state;
+    const suffix = description ? <EnterOutlined onClick={this.postTodo}/> : <span/>;
     return (
       <div className="TodoInput" id="TodoInput">
         <Input
           placeholder="添加新任务"
-          suffix={<EnterOutlined onClick={this.postTodo}/>}
+          suffix={suffix}
           value={description}
           onChange={(e) => this.setState({description: e.target.value})}
           onKeyUp={this.onKeyUp}
@@ -57,7 +59,9 @@ class TodoInput extends React.Component<ITodoInputProps, ITodoInputState> {
 const mapStateToProps = (state: any, ownProps: any) => ({
   ...ownProps
 });
+
 const mapDispatchToProps = {
   addTodo
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(TodoInput);

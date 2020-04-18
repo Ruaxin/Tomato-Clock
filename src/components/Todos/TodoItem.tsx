@@ -1,11 +1,10 @@
 import * as React from 'react';
 import {Checkbox} from 'antd';
 import {EnterOutlined, DeleteOutlined} from '@ant-design/icons';
-import './TodoItem.scss';
 import {connect} from 'react-redux';
 import {editTodo, updateTodo} from '../../redux/actions';
 import axios from '../../config/axios';
-
+import './TodoItem.scss';
 
 interface ITodoItemProps {
   id: number;
@@ -13,11 +12,11 @@ interface ITodoItemProps {
   completed: boolean;
   editing: boolean;
   editTodo: (id: number) => any;
-  updateTodo: (payload: any) => any
+  updateTodo: (payload: any) => any;
 }
 
 interface ITodoItemState {
-  editText: string
+  editText: string;
 }
 
 class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
@@ -36,9 +35,11 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
       throw new Error(e);
     }
   };
+
   editTodo = () => {
     this.props.editTodo(this.props.id);
   };
+
   onKeyUp = (e: any) => {
     if (e.keyCode === 13 && this.state.editText !== '') {
       this.updateTodo({description: this.state.editText});
@@ -51,10 +52,11 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
       <div className="editing">
         <input type="text" value={this.state.editText}
                onChange={e => this.setState({editText: e.target.value})}
-               onKeyUp={this.onKeyUp}/>
+               onKeyUp={this.onKeyUp}
+        />
         <div className="iconWrapper">
-          <EnterOutlined className="icon"/>
-          <DeleteOutlined className="icon" onClick={() => this.updateTodo({deleted: true})}/>
+          <EnterOutlined className="icon" onClick={e => this.updateTodo({description: this.state.editText})}/>
+          <DeleteOutlined className="icon" onClick={e => this.updateTodo({deleted: true})}/>
         </div>
       </div>
     );
@@ -79,8 +81,10 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
 const mapStateToProps = (state: any, ownProps: any) => ({
   ...ownProps
 });
+
 const mapDispatchToProps = {
   editTodo,
   updateTodo
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(TodoItem);

@@ -15,14 +15,13 @@ export default (state: any[] = [], action: any): any => {
         }
       });
     case EDIT_TODO:
-      state.forEach(t => {
+      return state.map(t => {
         if (t.id === action.payload) {
           return Object.assign({}, t, {editing: true});
         } else {
           return Object.assign({}, t, {editing: false});
         }
       });
-      return state;
     default:
       return state;
   }

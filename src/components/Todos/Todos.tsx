@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
+import {initTodos, updateTodo} from '../../redux/actions';
 import TodoInput from './TodoInput';
 import TodoItem from './TodoItem';
 import axios from '../../config/axios';
 import './Todos.scss';
-import {initTodos,updateTodo} from '../../redux/actions';
 
 
 class Todos extends React.Component<any> {
@@ -24,29 +24,33 @@ class Todos extends React.Component<any> {
     return this.unDeletedTodos.filter((t: any) => t.completed);
   }
 
+  componentDidMount() {
+    this.getTodos();
+  }
+
   getTodos = async () => {
     try {
       const response = await axios.get('todos');
       const todos = response.data.resources.map((t: any) => Object.assign({}, t, {editing: false}));
-      this.props.initTodos(todos)
+      this.props.initTodos(todos);
     } catch (e) {
       throw new Error(e);
     }
   };
-
-  componentDidMount() {
-    this.getTodos();
-  }
 
   public render() {
     return (
       <div className="Todos" id="Todos">
         <TodoInput/>
         <div className="todoLists">
-          {this.unCompletedTodos.map((t: any) =>
-            <TodoItem key={t.id} {...t}/>)}
-          {this.completedTodos.map((t: any) =>
-            <TodoItem key={t.id} {...t}/>)}
+          {
+            this.unCompletedTodos.map((t: any) =>
+              <TodoItem key={t.id} {...t}/>)
+          }
+          {
+            this.completedTodos.map((t: any) =>
+              <TodoItem key={t.id} {...t}/>)
+          }
         </div>
       </div>
     );
@@ -57,8 +61,10 @@ const mapStateToProps = (state: any, ownProps: any) => ({
   todos: state.todos,
   ...ownProps
 });
+
 const mapDispatchToProps = {
   initTodos,
   updateTodo
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(Todos);
