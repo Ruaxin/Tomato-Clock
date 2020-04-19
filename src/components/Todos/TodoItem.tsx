@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Checkbox} from 'antd';
 import {EnterOutlined, DeleteOutlined} from '@ant-design/icons';
 import {connect} from 'react-redux';
-import {editTodo, updateTodo} from '../../redux/actions';
+import {editTodo, updateTodo} from '../../redux/actions/todos';
 import axios from '../../config/axios';
 import './TodoItem.scss';
 
