@@ -2,12 +2,14 @@ import * as React from 'react';
 import './Tomatoes.scss';
 import TomatoAction from './TomatoAction';
 import {connect} from 'react-redux';
-import {initTomato, addTomato} from '../../redux/actions/tomatoes';
+import {initTomatoes, addTomato, updateTomato} from '../../redux/actions/tomatoes';
 import axios from '../../config/axios';
 
 interface ITomatoesProps {
   addTomato: (payload: any) => any;
-  tomatoes: any[]
+  tomatoes: any[];
+  initTomatoes: (payload: any[]) => any;
+  updateTomato: (payload: any) => any;
 }
 
 class Tomatoes extends React.Component<ITomatoesProps, any> {
@@ -20,14 +22,13 @@ class Tomatoes extends React.Component<ITomatoesProps, any> {
   }
 
   get unfinishedTomato() {
-    return this.props.tomatoes.filter(t => !t.description && !t.ender_at)[0];
+    return this.props.tomatoes.filter(t => !t.description && !t.ended_at)[0];
   }
 
   startTomato = async () => {
     try {
       const response = await axios.post('tomatoes', {duration: 1500000});
       this.props.addTomato(response.data.resource);
-      console.log(response.data);
     } catch (e) {
       throw new Error(e);
     }
@@ -35,7 +36,7 @@ class Tomatoes extends React.Component<ITomatoesProps, any> {
   getTomatoes = async () => {
     try {
       const response = await axios.get('tomatoes');
-      console.log(response.data);
+      this.props.initTomatoes(response.data.resources);
     } catch (e) {
       throw new Error(e);
     }
@@ -44,7 +45,10 @@ class Tomatoes extends React.Component<ITomatoesProps, any> {
   public render() {
     return (
       <div className="Tomatoes" id="Tomatoes">
-        <TomatoAction startTomato={this.startTomato} unfinishedTomato={this.unfinishedTomato}/>
+        <TomatoAction startTomato={this.startTomato}
+                      unfinishedTomato={this.unfinishedTomato}
+                      updateTomato={this.props.updateTomato}
+        />
       </div>
     );
   }
@@ -56,8 +60,9 @@ const mapStateToProps = (state: any, ownProps: any) => ({
 });
 
 const mapDispatchToProps = {
-  initTomato,
-  addTomato
+  initTomatoes,
+  addTomato,
+  updateTomato
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tomatoes);
