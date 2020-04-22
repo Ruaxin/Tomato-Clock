@@ -47,9 +47,6 @@ class TomatoAction extends React.Component<ITomatoActionProps, ITomatoActionStat
       onOk: () => {
         this.abortTomato();
       },
-      onCancel() {
-        console.log('Cancel');
-      },
       cancelText: '取消',
       okText: '确定',
     });
