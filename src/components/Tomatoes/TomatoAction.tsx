@@ -53,7 +53,7 @@ class TomatoAction extends React.Component<ITomatoActionProps, ITomatoActionStat
   };
   abortTomato = () => {
     this.updateTomato({aborted: true});
-    document.title = '饥人谷番茄APP';
+    document.title = 'Tomato Clock';
   };
 
   updateTomato = async (params: any) => {
