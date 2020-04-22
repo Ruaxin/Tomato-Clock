@@ -7,12 +7,12 @@ import axios from '../../config/axios';
 
 interface ITomatoesProps {
   addTomato: (payload: any) => any;
-  tomatoes: any[];
-  initTomatoes: (payload: any[]) => any;
   updateTomato: (payload: any) => any;
+  initTomatoes: (payload: any[]) => any;
+  tomatoes: any[];
 }
 
-class Tomatoes extends React.Component<ITomatoesProps, any> {
+class Tomatoes extends React.Component<ITomatoesProps> {
   constructor(props: ITomatoesProps) {
     super(props);
   }
@@ -22,21 +22,23 @@ class Tomatoes extends React.Component<ITomatoesProps, any> {
   }
 
   get unfinishedTomato() {
-    return this.props.tomatoes.filter(t => !t.description && !t.ended_at)[0];
+    return this.props.tomatoes.filter(t => !t.description && !t.ended_at && !t.aborted)[0];
   }
+
+
+  getTomatoes = async () => {
+    try {
+      const response = await axios.get('tomatoes');
+      this.props.initTomatoes(response.data.resources);
+    } catch (e) {
+      throw new Error(e);
+    }
+  };
 
   startTomato = async () => {
     try {
       const response = await axios.post('tomatoes', {duration: 1500000});
       this.props.addTomato(response.data.resource);
-    } catch (e) {
-      throw new Error(e);
-    }
-  };
-  getTomatoes = async () => {
-    try {
-      const response = await axios.get('tomatoes');
-      this.props.initTomatoes(response.data.resources);
     } catch (e) {
       throw new Error(e);
     }
@@ -47,8 +49,7 @@ class Tomatoes extends React.Component<ITomatoesProps, any> {
       <div className="Tomatoes" id="Tomatoes">
         <TomatoAction startTomato={this.startTomato}
                       unfinishedTomato={this.unfinishedTomato}
-                      updateTomato={this.props.updateTomato}
-        />
+                      updateTomato={this.props.updateTomato}/>
       </div>
     );
   }
@@ -60,9 +61,9 @@ const mapStateToProps = (state: any, ownProps: any) => ({
 });
 
 const mapDispatchToProps = {
-  initTomatoes,
   addTomato,
-  updateTomato
+  updateTomato,
+  initTomatoes
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tomatoes);

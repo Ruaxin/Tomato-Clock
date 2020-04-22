@@ -1,0 +1,19 @@
+@import '~antd/dist/antd.css';
+
+#TomatoAction {
+  .countDownWrapper, .inputWrapper {
+    position: relative;
+  }
+
+  .startTomatoButton {
+    width: 100%;
+  }
+
+  .icon {
+    position: absolute;
+    right: -6px;
+    top: -6px;
+    background: #fff;
+    cursor: pointer;
+  }
+}
