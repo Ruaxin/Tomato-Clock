@@ -35,7 +35,7 @@ class Polygon extends React.Component<IPolygonProps> {
   public render() {
     return (
       <div className="Polygon" id="Polygon">
-        <svg>
+        <svg className="svg">
           <polygon fill="rgba(215,78,78,0.1)" stroke="rgba(215,78,78,0.5)" strokeWidth="1" points={this.point()}/>
         </svg>
       </div>
