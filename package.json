@@ -1,6 +1,7 @@
 {
   "name": "tomato-react",
   "version": "0.1.0",
+  "homepage": "http://ruaxin.xyz/Tomato-Clock",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -15,6 +16,7 @@
     "babel-plugin-import": "^1.13.0",
     "classnames": "^2.2.6",
     "date-fns": "^1.30.1",
+    "gh-pages": "^2.2.0",
     "history": "^4.10.1",
     "lodash": "^4.17.15",
     "node-sass": "^4.13.1",
@@ -27,6 +29,8 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
