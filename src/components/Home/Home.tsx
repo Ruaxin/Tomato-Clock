@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { Menu, Dropdown} from 'antd';
+import {Menu, Dropdown} from 'antd';
 import {DownOutlined, UserOutlined, LogoutOutlined} from '@ant-design/icons';
 import './Home.scss';
 import axios from '../../config/axios';
 import history from '../../config/history';
 import Todos from '../Todos/Todos';
 import Tomatoes from '../Tomatoes/Tomatoes';
-
-interface IRouter {
-  history: any
-}
+import Statistics from '../Statistics/Statistics';
+import {connect} from 'react-redux';
+import {initTodos} from '../../redux/actions/todos';
+import {initTomatoes} from '../../redux/actions/tomatoes';
 
 interface IIndexState {
   user: any
@@ -34,7 +34,7 @@ const menu = (
   </Menu>
 );
 
-class Home extends React.Component<IRouter, IIndexState> {
+class Home extends React.Component<any, IIndexState> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -44,8 +44,27 @@ class Home extends React.Component<IRouter, IIndexState> {
 
   async componentWillMount() {
     await this.getMe();
+    await this.getTodos();
+    await this.getTomatoes();
   }
 
+  getTodos = async () => {
+    try {
+      const response = await axios.get('todos');
+      const todos = response.data.resources.map((t: any) => Object.assign({}, t, {editing: false}));
+      this.props.initTodos(todos);
+    } catch (e) {
+      throw new Error(e);
+    }
+  };
+  getTomatoes = async () => {
+    try {
+      const response = await axios.get('tomatoes');
+      this.props.initTomatoes(response.data.resources);
+    } catch (e) {
+      throw new Error(e);
+    }
+  };
   getMe = async () => {
     const response = await axios.get('me');
     this.setState({user: response.data});
@@ -57,16 +76,25 @@ class Home extends React.Component<IRouter, IIndexState> {
         <header>
           <span className="logo">LOGO</span>
           <Dropdown overlay={menu}>
-            <span>{this.state.user && this.state.user.account}<DownOutlined style={{marginLeft:8}}/></span>
+            <span>{this.state.user && this.state.user.account}<DownOutlined style={{marginLeft: 8}}/></span>
           </Dropdown>
         </header>
         <main>
           <Tomatoes/>
           <Todos/>
         </main>
+        <Statistics/>
       </div>
     );
   }
 }
 
-export default Home;
+const mapStateToProps = (state: any, ownProps: any) => ({
+  ...ownProps
+});
+const mapDispatchToProps = {
+  initTodos,
+  initTomatoes
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
