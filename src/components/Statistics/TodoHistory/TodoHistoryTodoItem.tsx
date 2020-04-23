@@ -18,6 +18,7 @@ class TodoHistoryTodoItem extends React.Component<ITodoHistoryTodoItemProps> {
 
   updateTodo = async (params: any) => {
     try {
+      console.log(params);
       const response = await axios.put(`todos/${this.props.todo.id}`, params);
       this.props.updateTodo(response.data.resource);
     } catch (e) {
@@ -34,7 +35,7 @@ class TodoHistoryTodoItem extends React.Component<ITodoHistoryTodoItemProps> {
       time = this.props.todo.updated_at;
       action = (
         <div className="action">
-          {/*<span onClick={() => this.updateTodo({finished: false})}>恢复</span>*/}
+          <span onClick={() => this.updateTodo({completed: false})}>恢复</span>
           <span onClick={() => this.updateTodo({deleted: true})}>删除</span>
         </div>
       );
