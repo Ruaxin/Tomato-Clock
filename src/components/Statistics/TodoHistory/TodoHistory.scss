@@ -1,3 +1,35 @@
-#TodoHistory{
+#TodoHistory {
+  .dailyTodos {
+    padding: 16px;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    display: flex;
 
+    .summary {
+      width: 100px;
+      margin-right: 8px;
+
+      .date {
+        span:first-child {
+          margin-right: 4px;
+          color: #222222;
+        }
+
+        span:last-child {
+          font-size: 12px;
+          color: #888888;
+        }
+      }
+
+      .finishedCount {
+        font-size: 14px;
+        color: #888;
+      }
+    }
+
+    .todoList {
+      flex: 1;
+    }
+  }
 }
